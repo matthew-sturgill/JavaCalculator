@@ -5,6 +5,8 @@ package CalculatorPackage;
  */
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.text.DecimalFormat;
+
 public class Calculator {
     Scanner userCalcInput = new Scanner (System.in);
     double num1;
@@ -17,6 +19,8 @@ public class Calculator {
     double salesTaxAdd;
     double adjustedBill;
     ArrayList <Double> history = new ArrayList<>();
+    DecimalFormat f = new DecimalFormat("##.00");
+
 
 
     public Calculator(){}
@@ -26,7 +30,7 @@ public class Calculator {
         Scanner userMenu = new Scanner(System.in);
         int userChoice;
         while (true) {
-            System.out.println("*Choose 1 for Calculator" + "\n" + "*Choose 2 for tip calculator" + "\n" + "*Choose 3 for Sales tax calculator" + "\n" + "*Choose 4 for history of answers" + "\n" + "*Choose 5 to delete history" + "\n" + "*Choose 6 for help" + "\n" + "*Choose 7 to exit");
+            System.out.println("(1) Calculator" + "\n" + "(2) Tip calculator" + "\n" + "(3) Sales tax calculator" + "\n" + "(4) History of answers" + "\n" + "(5) Delete history" + "\n" + "(6) Help" + "\n" + "(7) Exit");
             userChoice = userMenu.nextInt();
             switch (userChoice) {
                 case 1:
@@ -59,6 +63,7 @@ public class Calculator {
                     break;
                 default:
                     System.out.println("Please choose a correct menu option");
+                    calc();
             }
 
 
@@ -66,11 +71,13 @@ public class Calculator {
     }
 
     //Below is method for calculator.
+
      public void calcWork() {
         System.out.println("First number?");
         num1 = userCalcInput.nextDouble();
         System.out.println("Second number?");
         num2 = userCalcInput.nextDouble();
+
 
         System.out.println("Choose +, -, *, or /");
 
@@ -78,31 +85,23 @@ public class Calculator {
         switch (algebra) {
             case "+":
                 calctotal = (num1 + num2);
-                System.out.println(calctotal);
+                System.out.println(f.format(calctotal));
                 history.add(calctotal);
-
                 break;
             case "-":
                 calctotal = num1 - num2;
-                System.out.println(calctotal);
-                System.out.println(calctotal);
+                System.out.println(f.format(calctotal));
                 history.add(calctotal);
-
                 break;
             case "*":
                 calctotal = num1 * num2;
-                System.out.println(calctotal);
-                System.out.println(calctotal);
+                System.out.println(f.format(calctotal));
                 history.add(calctotal);
-
                 break;
-
             case "/":
                 calctotal = num1 / num2;
-                System.out.println(calctotal);
-                System.out.println(calctotal);
+                System.out.println(f.format(calctotal));
                 history.add(calctotal);
-
                 break;
             default:
                 System.out.println("You did something wrong, try again");
@@ -120,31 +119,31 @@ public class Calculator {
             case 1:
                 calctotal = (bill * 0.05) * 100 / 100;
                 calctotalplusbill = calctotal + bill;
-                System.out.println("Leave $" + calctotal + "\n" + "For a total of: $" + calctotalplusbill);
+                System.out.println("Leave $" + (f.format(calctotal))+ "\n" + "For a total of: $" + (f.format(calctotalplusbill)));
                 history.add(calctotal);
                 break;
             case 2:
                 calctotal = (bill * 0.10) * 100 / 100;
                 calctotalplusbill = calctotal + bill;
-                System.out.println("Leave $" + calctotal + "\n" + "For a total of: $" + calctotalplusbill);
+                System.out.println("Leave $" + (f.format(calctotal))+ "\n" + "For a total of: $" + (f.format(calctotalplusbill)));
                 history.add(calctotal);
                 break;
             case 3:
                 calctotal = (bill * 0.15) * 100 / 100;
                 calctotalplusbill = calctotal + bill;
-                System.out.println("Leave $" + calctotal + "\n" + "For a total of: $" + calctotalplusbill);
+                System.out.println("Leave $" + (f.format(calctotal))+ "\n" + "For a total of: $" + (f.format(calctotalplusbill)));
                 history.add(calctotal);
                 break;
             case 4:
                 calctotal = (bill * 0.20) * 100 / 100;
                 calctotalplusbill = calctotal + bill;
-                System.out.println("Leave $" + calctotal +"\n" + "For a total of: $" + calctotalplusbill);
+                System.out.println("Leave $" + (f.format(calctotal))+ "\n" + "For a total of: $" + (f.format(calctotalplusbill)));
                 history.add(calctotal);
                 break;
             case 5:
                 calctotal = (bill * 0.25) * 100 / 100;
                 calctotalplusbill = calctotal + bill;
-                System.out.println("Leave $" + calctotal + "\n" + "For a total of: $" + calctotalplusbill);
+                System.out.println("Leave $" + (f.format(calctotal))+ "\n" + "For a total of: $" + (f.format(calctotalplusbill)));
                 history.add(calctotal);
                 break;
             default:
@@ -159,7 +158,7 @@ public class Calculator {
         System.out.print("Input your state sales tax. Example 6 for Kentucky.");
         salesTaxAdd = userCalcInput.nextDouble();
         adjustedBill = (bill * (salesTaxAdd * 0.01));
-        System.out.println("Your added sales tax will be: $" + (bill * (salesTaxAdd * 0.01)) + "\n"+ "For a total of: $" + (bill + (bill * (salesTaxAdd * 0.01))));
+        System.out.println("Your added sales tax will be: $" + f.format(bill * (salesTaxAdd * 0.01)) + "\n"+ "For a total of: $" + f.format(bill + (bill * (salesTaxAdd * 0.01))));
         history.add(adjustedBill);
 
 
@@ -168,10 +167,11 @@ public class Calculator {
         System.out.println(history);
     }
     public void showHelp(){
-        System.out.println("Please choose a menu item 1-4." +"\n" + "Input your numbers or bill total." +"\n" +"Choose +, -, *, or / in calculator" + "Rate your service 1,2,3,4,5 in tip calculator" + "\n" + "Sales tax calculator input your sales tax as follows. KY sales tax is 6% so I would input 6" +"\n" + "Choose 3 to see all previous equations performed or choose 5 to remove all history");
+        System.out.println("* Please choose a menu item 1-4" +"\n" + "* Input your numbers or bill total" +"\n" +"* Choose +, -, *, or / in calculator" + "\n" + "* Rate your service 1,2,3,4,5 in tip calculator" + "\n" + "* Sales tax calculator input your sales tax as follows. KY sales tax is 6% so I would input 6" +"\n" + "* Choose 3 to see all previous equations performed or choose 5 to remove all history");
     }
     public void deleteHistory(){
         history.clear();
+        System.out.println("History of answers deleted");
     }
 
 
